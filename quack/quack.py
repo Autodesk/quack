@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
+"""Quack!!"""
+
 import argparse
+import colorama
 import git
 import os
 import shutil
@@ -51,19 +54,23 @@ def _fetch_modules(config, specific_module=None):
         if specific_module and specific_module != module[0]:
             continue
         _remove_dir(module[0])
-        print 'Cloning', module[1]['repository'], '...'
+        print 'Cloning:', module[1]['repository']
         sub_module = repo.create_submodule(
             module[0], modules + '/' + module[0],
             url=module[1]['repository'],
             branch=module[1].get('branch', 'master')
         )
+
         if module[1].get('hexsha'):
             subprocess.call(
                 ['git', 'checkout', '--quiet', module[1].get('hexsha')],
                 cwd=modules + '/' + module[0])
-            print 'Cloned:', module[0] + ' (' + module[1].get('hexsha') + ')'
+            hexsha = ' (' + module[1].get('hexsha') + ')'
         else:
-            print 'Cloned:', module[0] + ' (' + sub_module.hexsha + ')'
+            hexsha = ' (' + sub_module.hexsha + ')'
+        print '\033[1A' + '  Cloned:', module[0] + hexsha
+        print '\033[1A' + '\033[32m' + u'\u2713' + '\033[37m'
+
         path = module[1].get('path', '')
         from_path = '%s/%s/%s' % (modules, module[0], path)
         is_exists = os.path.exists(from_path)

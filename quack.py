@@ -49,9 +49,11 @@ if _CONFIG:
             module[1]['repository'], _MODULES, module[0])
         print command
         os.popen(command)
-        print command, module
+        # print command, module
         path = module[1].get('path', '')
         from_path = '%s/%s/%s' % (_MODULES, module[0], path)
-        print path, from_path
+        # print path, from_path
         if (path and os.path.exists(from_path)) or not path:
             shutil.copytree(from_path, module[0])
+        os.popen('git submodule deinit -f %s/%s' % (_MODULES, module[0]))
+    os.popen('rm .gitmodules')

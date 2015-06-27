@@ -2,15 +2,13 @@
 
 name: Quack
 description: Quack configuration
-repository: ''
-npm: true
 
 modules:
   pyanalytic:
     repository: https://github.com/zonito/PyAnalytics.git
     path: pyanalytics
-    branch: dev
+    branch: master
   pyga:
     repository: https://github.com/kra3/py-ga-mob.git
-    path: pyga
-    sha: '8ef8f8768022546b84a57be1bfb173c71f544828'
+    branch: gh-pages
+    sha: '998df5359ef1faada2f530c8840b82d7342a100e'

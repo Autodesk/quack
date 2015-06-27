@@ -1,0 +1,4 @@
+[submodule "pyan"]
+	url = https://github.com/kra3/py-ga-mob.git
+	path = .quack/modules/pyan
+	branch = refs/heads/master

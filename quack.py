@@ -56,4 +56,6 @@ if _CONFIG:
         if (path and os.path.exists(from_path)) or not path:
             shutil.copytree(from_path, module[0])
         os.popen('git submodule deinit -f %s/%s' % (_MODULES, module[0]))
+        os.popen('git rm --cached %s/%s' % (_MODULES, module[0]))
     os.popen('rm .gitmodules')
+    os.popen('git rm --cached .gitmodules')

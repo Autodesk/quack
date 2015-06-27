@@ -2,12 +2,17 @@
 
 import os
 import subprocess
+import shutil
 
 
-def _create_dir(directory, is_fresh=False):
-    """Create directory."""
-    if os.path.exists(directory) and is_fresh:
+def _remove_dir(directory):
+    """Remove directory."""
+    if os.path.exists(directory):
         shutil.rmtree(directory)
+
+
+def _create_dir(directory):
+    """Create directory."""
     if not os.path.exists(directory):
         os.makedirs(directory)
 _create_dir('.quack')
@@ -37,25 +42,36 @@ def _get_config():
         return yaml.load(file_pointer)
     return {}
 
-_CONFIG = _get_config()
-if _CONFIG:
-    _MODULES = '.quack/modules'
-    _create_dir(_MODULES)
+
+def _fetch_modules():
+    """Fetch git submodules."""
+    _modules = '.quack/modules'
+    _remove_dir('.git/modules/.quack')
+    ignore_list = []
+    _create_dir(_modules)
+    with open('.gitignore', 'r') as file_pointer:
+        ignore_list = list(set(file_pointer.read().split('\n')))
     for module in _CONFIG.get('modules').items():
-        import shutil
-        if os.path.exists(module[0]):
-            shutil.rmtree(module[0])
+        _remove_dir(module[0])
         command = 'git submodule add --force %s %s/%s' % (
-            module[1]['repository'], _MODULES, module[0])
-        print command
+            module[1]['repository'], _modules, module[0])
+        print '--> ' + command
         os.popen(command)
         # print command, module
         path = module[1].get('path', '')
-        from_path = '%s/%s/%s' % (_MODULES, module[0], path)
+        from_path = '%s/%s/%s' % (_modules, module[0], path)
         # print path, from_path
         if (path and os.path.exists(from_path)) or not path:
             shutil.copytree(from_path, module[0])
-        os.popen('git submodule deinit -f %s/%s' % (_MODULES, module[0]))
-        os.popen('git rm --cached %s/%s' % (_MODULES, module[0]))
-    os.popen('rm .gitmodules')
-    os.popen('git rm --cached .gitmodules')
+            os.popen('git submodule deinit -f %s/%s' % (_modules, module[0]))
+            os.popen('git rm --cached %s/%s' % (_modules, module[0]))
+            os.popen('git rm --cached .gitmodules')
+            os.popen('rm .gitmodules')
+            with open('.gitignore', 'a') as file_pointer:
+                if module[0] not in ignore_list:
+                    file_pointer.write('\n' + module[0])
+                    ignore_list.append(module[0])
+
+_CONFIG = _get_config()
+if _CONFIG:
+    _fetch_modules()

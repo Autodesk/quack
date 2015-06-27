@@ -12,5 +12,5 @@ modules:
     branch: dev
   pyga:
     repository: https://github.com/kra3/py-ga-mob.git
-    path: doc
+    path: pyga
     sha: '8ef8f8768022546b84a57be1bfb173c71f544828'

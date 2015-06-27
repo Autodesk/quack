@@ -9,6 +9,7 @@ setup(
 
     # dependencies
     install_requires=[
+        'argparse',
         'gitpython',
         'pyyaml'
     ],

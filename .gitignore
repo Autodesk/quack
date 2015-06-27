@@ -6,3 +6,6 @@ quack.egg-info
 
 subscribe
 pyanalytic
+
+sort-selected
+django-admin

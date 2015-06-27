@@ -76,7 +76,7 @@ def _fetch_modules(config, specific_module=None):
         sub_module.remove()
         if os.path.isfile('.gitmodules'):
             subprocess.call('rm .gitmodules'.split())
-            subprocess.call('git rm --cached .gitmodules'.split())
+            subprocess.call('git rm --quiet --cached .gitmodules'.split())
 
         with open('.gitignore', 'a') as file_pointer:
             if module[0] not in ignore_list:

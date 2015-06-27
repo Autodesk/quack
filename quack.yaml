@@ -7,8 +7,6 @@ modules:
   pyanalytic:
     repository: https://github.com/zonito/PyAnalytics.git
     path: pyanalytics
-    branch: master
-  pyga:
-    repository: https://github.com/kra3/py-ga-mob.git
-    branch: gh-pages
-    sha: '998df5359ef1faada2f530c8840b82d7342a100e'
+  subscribe:
+    repository: https://github.com/zonito/subscribe.git
+    hexsha: 9e3e9642cfea36f4ae216d27df100134920143b9

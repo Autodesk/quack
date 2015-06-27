@@ -60,21 +60,21 @@ def _fetch_modules():
     repo = git.Repo('.')
     for module in _CONFIG.get('modules').items():
         _remove_dir(module[0])
-        # command = 'git submodule add --force %s %s/%s' % (
-        #     module[1]['repository'], _modules, module[0])
+        print 'Cloning', module[1]['repository'], '...'
         sub_module = repo.create_submodule(
-            'pyan', _modules + '/' + module[0],
+            module[0], _modules + '/' + module[0],
             url=module[1]['repository'],
             branch=module[1].get('branch', 'master')
         )
-        # if not os.path.exists(_modules + '/' + module[0]):
-        #     print '--> ' + command
-        #     os.popen(command)
-        # print command, module
-        print sub_module, sub_module.hexsha, sub_module.binsha, dir(sub_module)
+        if module[1].get('hexsha'):
+            subprocess.call(
+                ['git', 'checkout', '--quiet', module[1].get('hexsha')],
+                cwd=_modules + '/' + module[0])
+            print 'Cloned:', module[0] + ' (' + module[1].get('hexsha') + ')'
+        else:
+            print 'Cloned:', module[0] + ' (' + sub_module.hexsha + ')'
         path = module[1].get('path', '')
         from_path = '%s/%s/%s' % (_modules, module[0], path)
-        # print path, from_path
         is_exists = os.path.exists(from_path)
         if (path and is_exists) or not path:
             shutil.copytree(from_path, module[0])
@@ -82,11 +82,7 @@ def _fetch_modules():
             print '%s folder does not exists. Skipped.' % path
 
         # Remove submodule.
-        os.popen('git submodule deinit -f %s/%s' % (_modules, module[0]))
-        os.popen('git rm --cached %s/%s' % (_modules, module[0]))
-        if os.path.isfile('.gitmodules'):
-            os.popen('git rm --cached .gitmodules')
-            os.popen('rm .gitmodules')
+        sub_module.remove()
 
         with open('.gitignore', 'a') as file_pointer:
             if module[0] not in ignore_list:
@@ -94,14 +90,5 @@ def _fetch_modules():
                 ignore_list.append(module[0])
 
 _CONFIG = _get_config()
-# print dir(git)
-# repo = git.Repo('.')
-# print repo, dir(repo)
-# sm = repo.create_submodule(
-#     'pyan', '.quack/modules/pyan',
-#     url='https://github.com/kra3/py-ga-mob.git', branch='master')
-# sm.binsha = '998df5359ef1faada2f530c8840b82d7342a100e'
-# sm.update()
-# print sm, dir(sm)
 if _CONFIG:
     _fetch_modules()

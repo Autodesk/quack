@@ -12,7 +12,7 @@ _PARSER = argparse.ArgumentParser(description='Quack builder')
 _PARSER.add_argument(
     '-y', '--yaml', help='Provide custom yaml. default: quack.yaml')
 _PARSER.add_argument(
-    '-p', '--profile', help='Run selected profile. default: init')
+    '-p', '--profile', help='Run selected profile. default: init', nargs='?')
 _ARGS = _PARSER.parse_args()
 
 
@@ -74,6 +74,9 @@ def _fetch_modules(config, specific_module=None):
 
         # Remove submodule.
         sub_module.remove()
+        if os.path.isfile('.gitmodules'):
+            subprocess.call('rm .gitmodules'.split())
+            subprocess.call('git rm --cached .gitmodules'.split())
 
         with open('.gitignore', 'a') as file_pointer:
             if module[0] not in ignore_list:
@@ -94,8 +97,10 @@ def main():
     """Entry point."""
     _create_dir('.quack')
     config = _get_config()
+    if not _ARGS.profile:
+        _ARGS.profile = 'init'
     commands = config.get('profiles', {}).get(_ARGS.profile, [])
-    print commands
+    print _ARGS.profile, commands
     for command in commands:
         is_negate = command[0] == '-'
         if is_negate:

@@ -1,4 +1,8 @@
 .quack
+.gitmodules
+build
+dist
+quack.egg-info
 
 subscribe
 pyanalytic

@@ -20,7 +20,7 @@ setup(
     description=('Insert specific module / folder from given'
                  'repositories in yaml configurations.'),
     license='MIT',
-    keywords='quack build submodule module dependencies',
+    keywords='quack build submodule module dependencies'.split(),
     url='https://github.com/zonito/quack',  # project homepage
     download_url='https://github.com/zonito/quack/archive/0.0.1.tar.gz',
 

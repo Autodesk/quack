@@ -50,7 +50,7 @@ profiles:
   init:
     tasks: ['modules']
   update:
-    tasks: ['modules:subscriibe'] 
+    tasks: ['modules:subscribe'] 
     dependencies:
       pyanalytic:
         quack: 'pyanalytic/build.yaml:update'

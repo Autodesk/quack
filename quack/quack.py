@@ -36,13 +36,18 @@ def _create_dir(directory):
 def _get_config():
     """Return yaml configuration."""
     yaml_file = _ARGS.yaml or 'quack.yaml'
-    with open(yaml_file) as file_pointer:
-        return yaml.load(file_pointer)
-    return {}
+    if os.path.isfile(yaml_file):
+        with open(yaml_file) as file_pointer:
+            return yaml.load(file_pointer)
+    return
 
 
 def _fetch_modules(config, specific_module=None):
     """Fetch git submodules."""
+    module_list = config.get('modules')
+    if not module_list:
+        print 'No modules found.'
+        return
     modules = '.quack/modules'
     ignore_list = []
     _remove_dir('.git/modules/.quack')
@@ -51,7 +56,7 @@ def _fetch_modules(config, specific_module=None):
         with open('.gitignore', 'r') as file_pointer:
             ignore_list = list(set(file_pointer.read().split('\n')))
     repo = git.Repo('.')
-    for module in config.get('modules').items():
+    for module in module_list.items():
         if specific_module and specific_module != module[0]:
             continue
         _remove_dir(module[0])
@@ -138,6 +143,9 @@ def _run_tasks(config, profile):
         for dependency in profile.get('dependencies', {}).items():
             _run_dependencies(dependency)
     tasks = profile.get('tasks', [])
+    if not tasks:
+        print 'No tasks found.'
+        return
     for command in tasks:
         is_negate = command[0] == '-'
         if is_negate:
@@ -157,10 +165,30 @@ def _run_tasks(config, profile):
             _clean_modules(config, module)
 
 
+def _prompt_to_create():
+    """Prompt user to create quack configuration."""
+    yes_or_no = raw_input(
+        'No quack configuration found, do you want to create one? (y/N): ')
+    if yes_or_no.lower() == 'y':
+        project_name = raw_input('Provide project name: ')
+        with open('quack.yaml', 'a') as file_pointer:
+            file_pointer.write("""name: %s
+modules:
+profiles:
+  init:
+    tasks: ['modules']""" % project_name)
+        return _get_config()
+    return
+
+
 def main():
     """Entry point."""
     _create_dir('.quack')
     config = _get_config()
+    if not config:
+        config = _prompt_to_create()
+        if not config:
+            return
     if not _ARGS.profile:
         _ARGS.profile = 'init'
     profile = config.get('profiles', {}).get(_ARGS.profile, {})

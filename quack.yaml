@@ -19,6 +19,15 @@ modules:
     path: djangodemo
 
 profiles:
-  init: ['modules']
-  update: ['modules:django-admin']
-  clean: ['-modules']
+  init:
+    tasks: ['modules']
+    dependencies:
+  update:
+    tasks: ['modules:django-admin']
+    dependencies:
+      subscribe:
+        quack: 'subscribe'
+      pyanalytic:
+        quack: 'pyanalytic/build.yaml:update'
+  clean:
+    tasks: ['-modules']

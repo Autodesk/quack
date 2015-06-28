@@ -4,13 +4,12 @@ from setuptools import setup
 
 setup(
     name='quack',
-    version='0.0.2',
+    version='0.0.3',
     packages=['quack'],
 
     # dependencies
     install_requires=[
         'argparse',
-        'colorama',
         'gitpython',
         'pyyaml'
     ],

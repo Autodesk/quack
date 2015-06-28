@@ -2,6 +2,7 @@
 
 name: Quack
 description: Quack configuration
+version: 0.0.4
 
 modules:
   pyanalytic:

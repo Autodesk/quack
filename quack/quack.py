@@ -105,13 +105,13 @@ def _clean_modules(config, specific_module=None):
 
 def _run_dependencies(dependency):
     """Execute all required dependencies."""
-    if not dependency:
+    if not dependency or dependency[0] != 'quack':
         return
-    quack = dependency[1].get('quack')
+    quack = dependency[1]
     slash_index = quack.rfind('/')
     command = ['quack']
     if slash_index == -1:
-        print '..' + quack
+        print 'Quack..' + quack
         git.Repo.init(quack)
         subprocess.call(command, cwd=quack)
         _remove_dir(quack + '/.git')
@@ -124,7 +124,7 @@ def _run_dependencies(dependency):
         if colon_index > 0:
             command.append('-y')
             command.append(quack[slash_index + 1:colon_index])
-        print '..' + module
+        print 'Quack..' + module
         git.Repo.init(module)
         subprocess.call(command, cwd=module)
         _remove_dir(module + '/.git')
@@ -142,13 +142,14 @@ def _run_tasks(config, profile):
         is_negate = command[0] == '-'
         if is_negate:
             command = command[1:]
-        command = command + ':'
         module = None
-        is_modules = False
-        if 'modules:' in command:
+        is_modules = 'modules:' in command or 'modules' == command
+        is_quack = 'quack:' in command
+
+        if is_modules and command != 'modules':
             module = command.replace('modules:', '')
-            module = module[0: len(module) - 1]
-            is_modules = True
+        elif is_quack:
+            _run_dependencies(('quack', command.replace('quack:', '')))
 
         if is_modules and not is_negate:
             _fetch_modules(config, module)

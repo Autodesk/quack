@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='quack',
-    version='0.0.3',
+    version='0.0.4',
     packages=['quack'],
 
     # dependencies

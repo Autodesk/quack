@@ -78,7 +78,7 @@ Add a file called quack.yaml to the root of your project. The pre-commit config 
 ```
 $ quack
 ```
-Above command will look for `quack.yaml` file and execute `init` profile's instructions as a default profile.
+Above command will look for `quack.yaml` file or create, if not found, and execute `init` profile's instructions as a default profile.
 
 ```
 $ quack -y quack.yaml -p update

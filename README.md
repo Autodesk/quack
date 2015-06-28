@@ -78,7 +78,7 @@ $ quack
 Above command will look for `quack.yaml` file and execute `init` profile's instructions as a default profile.
 
 ```
-$ quack -y quake.yaml -p update
+$ quack -y quack.yaml -p update
 ```
 You can provide your custom `yaml` file (such as `build.yaml`). Above command will execute given `update` profile within `build.yaml` configuration file.
 

@@ -41,19 +41,18 @@ modules:
   pyanalytic:
     repository: https://github.com/zonito/PyAnalytics.git
     path: pyanalytics
-    branch: master
+    branch: dev
   subscribe:
     repository: https://github.com/zonito/subscribe.git
     hexsha: 9e3e9642cfea36f4ae216d27df100134920143b9
 
 profiles:
   init:
-    tasks: ['modules']
+    tasks: ['modules', 'quack:pyanalytic/build.yaml:update']
   update:
-    tasks: ['modules:subscribe'] 
+    tasks: ['modules:subscribe']
     dependencies:
-      pyanalytic:
-        quack: 'pyanalytic/build.yaml:update'
+      quack: 'pyanalytic/build.yaml:update'
   clean:
     tasks: ['-modules']
 ```

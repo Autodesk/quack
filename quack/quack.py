@@ -151,13 +151,17 @@ def _run_tasks(config, profile):
         if is_negate:
             command = command[1:]
         module = None
-        is_modules = 'modules:' in command or 'modules' == command
-        is_quack = 'quack:' in command
+        is_modules = command.find('modules:') == 0 or 'modules' == command
+        is_quack = command.find('quack:') == 0
+        is_cmd = command.find('cmd:') == 0
 
         if is_modules and command != 'modules':
             module = command.replace('modules:', '')
         elif is_quack:
             _run_dependencies(('quack', command.replace('quack:', '')))
+        elif is_cmd:
+            cmd = command.replace('cmd:', '')
+            subprocess.call(cmd.split())
 
         if is_modules and not is_negate:
             _fetch_modules(config, module)

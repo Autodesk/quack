@@ -36,6 +36,7 @@ Note, depending on your computer's settings, you may need to `sudo python setup.
 ```yaml
 name: Quack
 description: Quack configuration
+version: 0.0.6
 
 modules:
   pyanalytic:
@@ -48,7 +49,9 @@ modules:
 
 profiles:
   init:
-    tasks: ['modules', 'quack:pyanalytic/build.yaml:update']
+    tasks: ['modules',
+            'quack:pyanalytic/build.yaml:update',
+            'cmd:pwd']
   update:
     tasks: ['modules:subscribe']
     dependencies:

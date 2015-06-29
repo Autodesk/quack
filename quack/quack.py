@@ -52,7 +52,7 @@ def _fetch_modules(config, specific_module=None):
     """Fetch git submodules."""
     module_list = config.get('modules')
     if not module_list:
-        print 'No modules found.'
+        print('No modules found.')
         return
     modules = '.quack/modules'
     ignore_list = []
@@ -66,7 +66,7 @@ def _fetch_modules(config, specific_module=None):
         if specific_module and specific_module != module[0]:
             continue
         _remove_dir(module[0])
-        print 'Cloning:', module[1]['repository']
+        print('Cloning: ' + module[1]['repository'])
         sub_module = repo.create_submodule(
             module[0], modules + '/' + module[0],
             url=module[1]['repository'],
@@ -80,8 +80,8 @@ def _fetch_modules(config, specific_module=None):
             hexsha = ' (' + module[1].get('hexsha') + ')'
         else:
             hexsha = ' (' + sub_module.hexsha + ')'
-        print '\033[1A' + '  Cloned:', module[0] + hexsha
-        print '\033[1A' + '\033[32m' + u'\u2713' + '\033[37m'
+        print('\033[1A' + '  Cloned:', module[0] + hexsha)
+        print('\033[1A' + '\033[32m' + u'\u2713' + '\033[37m')
 
         path = module[1].get('path', '')
         from_path = '%s/%s/%s' % (modules, module[0], path)
@@ -91,7 +91,7 @@ def _fetch_modules(config, specific_module=None):
                 from_path, module[0],
                 ignore=shutil.ignore_patterns('.git*'))
         elif not is_exists:
-            print '%s folder does not exists. Skipped.' % path
+            print('%s folder does not exists. Skipped.' % path)
 
         # Remove submodule.
         sub_module.remove()
@@ -111,7 +111,7 @@ def _clean_modules(config, specific_module=None):
         if specific_module and specific_module != module[0]:
             continue
         if _remove_dir(module[0]):
-            print 'Cleaned', module[0]
+            print('Cleaned', module[0])
 
 
 def _run_dependencies(dependency):
@@ -122,7 +122,7 @@ def _run_dependencies(dependency):
     slash_index = quack.rfind('/')
     command = ['quack']
     if slash_index == -1:
-        print 'Quack..' + quack
+        print('Quack..' + quack)
         git.Repo.init(quack)
         subprocess.call(command, cwd=quack)
         _remove_dir(quack + '/.git')
@@ -135,7 +135,7 @@ def _run_dependencies(dependency):
         if colon_index > 0:
             command.append('-y')
             command.append(quack[slash_index + 1:colon_index])
-        print 'Quack..' + module
+        print('Quack..' + module)
         git.Repo.init(module)
         subprocess.call(command, cwd=module)
         _remove_dir(module + '/.git')
@@ -150,7 +150,7 @@ def _run_tasks(config, profile):
             _run_dependencies(dependency)
     tasks = profile.get('tasks', [])
     if not tasks:
-        print 'No tasks found.'
+        print('No tasks found.')
         return
     for command in tasks:
         is_negate = command[0] == '-'
@@ -202,7 +202,7 @@ def main():
     if not _ARGS.profile:
         _ARGS.profile = 'init'
     profile = config.get('profiles', {}).get(_ARGS.profile, {})
-    # print _ARGS.profile, profile
+    # print(_ARGS.profile, profile)
     _run_tasks(config, profile)
 
 if __name__ == '__main__':

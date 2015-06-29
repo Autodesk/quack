@@ -8,8 +8,8 @@ from quack import quack
 
 def test_create_dir():
     """Directory specific tests."""
-    quack._create_dir('qt')
-    quack._create_dir('qt')
+    # quack._create_dir('qt')
+    # quack._create_dir('qt')
     assert os.path.exists('qt')
     quack._remove_dir('qt')
     quack._remove_dir('qt')

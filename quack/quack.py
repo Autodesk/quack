@@ -81,7 +81,7 @@ def _fetch_modules(config, specific_module=None):
         else:
             hexsha = ' (' + sub_module.hexsha + ')'
         print('\033[1A' + '  Cloned:', module[0] + hexsha)
-        print('\033[1A' + '\033[32m' + u'\u2713' + '\033[37m')
+        print('\033[1A' + '\033[32m' + '\u2713' + '\033[37m')
 
         path = module[1].get('path', '')
         from_path = '%s/%s/%s' % (modules, module[0], path)

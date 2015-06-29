@@ -17,7 +17,7 @@ setup(
     # metadata for upload to PyPI
     author='Love Sharma',
     author_email='contact@lovesharma.com',
-    description=('Insert specific module / folder from given'
+    description=('Insert specific module / folder from given '
                  'repositories in yaml configurations.'),
     license='MIT',
     keywords='quack build submodule module dependencies'.split(),

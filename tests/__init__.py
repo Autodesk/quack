@@ -1,0 +1,1 @@
+"""Quack Tests"""

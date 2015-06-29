@@ -11,12 +11,18 @@ import types
 import yaml
 
 
-_PARSER = argparse.ArgumentParser(description='Quack builder')
-_PARSER.add_argument(
-    '-y', '--yaml', help='Provide custom yaml. default: quack.yaml')
-_PARSER.add_argument(
-    '-p', '--profile', help='Run selected profile. default: init', nargs='?')
-_ARGS = _PARSER.parse_args()
+_ARGS = None
+
+
+def _setup():
+    """Setup parser if executed script directly."""
+    parser = argparse.ArgumentParser(description='Quack builder')
+    parser.add_argument(
+        '-y', '--yaml', help='Provide custom yaml. default: quack.yaml')
+    parser.add_argument(
+        '-p', '--profile', help='Run selected profile. default: init',
+        nargs='?')
+    return parser.parse_args()
 
 
 def _remove_dir(directory):
@@ -200,4 +206,5 @@ def main():
     _run_tasks(config, profile)
 
 if __name__ == '__main__':
+    _ARGS = _setup()
     main()

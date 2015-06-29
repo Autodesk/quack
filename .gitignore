@@ -1,5 +1,6 @@
 .quack
 .gitmodules
+*.pyc
 build
 dist
 quack.egg-info

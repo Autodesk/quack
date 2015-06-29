@@ -36,6 +36,7 @@ Note, depending on your computer's settings, you may need to `sudo python setup.
 ```yaml
 name: Quack
 description: Quack configuration
+version: 0.0.6
 
 modules:
   pyanalytic:
@@ -48,7 +49,9 @@ modules:
 
 profiles:
   init:
-    tasks: ['modules', 'quack:pyanalytic/build.yaml:update']
+    tasks: ['modules',
+            'quack:pyanalytic/build.yaml:update',
+            'cmd:pwd']
   update:
     tasks: ['modules:subscribe']
     dependencies:
@@ -75,7 +78,7 @@ Add a file called quack.yaml to the root of your project. The pre-commit config 
 ```
 $ quack
 ```
-Above command will look for `quack.yaml` file and execute `init` profile's instructions as a default profile.
+Above command will look for `quack.yaml` file or create, if not found, and execute `init` profile's instructions as a default profile.
 
 ```
 $ quack -y quack.yaml -p update

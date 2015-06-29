@@ -3,6 +3,6 @@ python:
   - "2.6"
   - "2.7"
 # command to install dependencies
-install: "pip install py.test"
+install: "pip install pytest"
 # command to run tests
 script: pytest tests/quack_tests.py

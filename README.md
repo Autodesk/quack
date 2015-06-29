@@ -1,4 +1,4 @@
-## Quack - Reuse modules.
+## Quack - Reuse modules. # quack [![Build Status](https://api.travis-ci.org/quack/quack.svg)](https://travis-ci.org/quack/quack)
 Insert specific module from git repository.
 
 ### Features:

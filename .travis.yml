@@ -5,4 +5,4 @@ python:
 # command to install dependencies
 install: "pip install py.test"
 # command to run tests
-script: py.test tests/quack_tests.py
+script: pytest tests/quack_tests.py

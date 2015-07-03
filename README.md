@@ -9,7 +9,7 @@ Insert specific module from git repository.
 * Written entirely in python
 
 ### Installation
-There are two ways to install stackit. Both should have roughly the same outcome, but have their advantages/disadvantages.
+There are two ways to install quack. Both should have roughly the same outcome, but have their advantages/disadvantages.
 
 ##### 1) PyPI / pip
 This method will always produce some stable build, but may not be the most up to date version. New functionality will come slower than building from this repo.

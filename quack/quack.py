@@ -59,7 +59,7 @@ def _fetch_modules(config, specific_module=None):
     ignore_list = []
     _remove_dir('.git/modules/.quack')
     _create_dir(modules)
-    if os.path.isfile('.gitignore'):
+    if config.get('gitignore') and os.path.isfile('.gitignore'):
         with open('.gitignore', 'r') as file_pointer:
             ignore_list = list(set(file_pointer.read().split('\n')))
     repo = git.Repo('.')
@@ -81,9 +81,6 @@ def _fetch_modules(config, specific_module=None):
             hexsha = ' (' + module[1].get('hexsha') + ')'
         else:
             hexsha = ' (' + sub_module.hexsha + ')'
-        print('\033[1A' + '  Cloned: ' + module[0] + hexsha)
-        print('\033[1A' + '\033[32m' +
-              str(u'\u2713'.encode('utf-8')) + '\033[37m')
 
         path = module[1].get('path', '')
         from_path = '%s/%s/%s' % (modules, module[0], path)
@@ -101,10 +98,15 @@ def _fetch_modules(config, specific_module=None):
             subprocess.call('rm .gitmodules'.split())
             subprocess.call('git rm --quiet --cached .gitmodules'.split())
 
-        with open('.gitignore', 'a') as file_pointer:
-            if module[0] not in ignore_list:
-                file_pointer.write('\n' + module[0])
-                ignore_list.append(module[0])
+        print('\033[1A' + '  Cloned: ' + module[0] + hexsha)
+        print('\033[1A' + '\033[32m' +
+              str(u'\u2713'.encode('utf-8')) + '\033[37m')
+
+        if config.get('gitignore'):
+            with open('.gitignore', 'a') as file_pointer:
+                if module[0] not in ignore_list:
+                    file_pointer.write('\n' + module[0])
+                    ignore_list.append(module[0])
 
 
 def _clean_modules(config, specific_module=None):

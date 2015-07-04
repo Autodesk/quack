@@ -3,6 +3,7 @@
 name: Quack
 description: Quack configuration
 version: 0.0.6
+gitignore: true
 
 modules:
   pyanalytic:

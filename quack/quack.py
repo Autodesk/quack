@@ -198,6 +198,9 @@ profiles:
 def main():
     """Entry point."""
     _create_dir('.quack')
+    if _ARGS is None:
+        global _ARGS
+        _ARGS = _setup()
     config = _get_config()
     if not config:
         config = _prompt_to_create()

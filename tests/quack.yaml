@@ -1,0 +1,9 @@
+# Quack test build configuration.
+
+name: Quack Test
+
+modules:
+
+profiles:
+  init:
+    tasks: []

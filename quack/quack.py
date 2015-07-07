@@ -42,7 +42,7 @@ def _create_dir(directory):
 
 def _get_config():
     """Return yaml configuration."""
-    yaml_file = _ARGS.yaml or 'quack.yaml'
+    yaml_file = (hasattr(_ARGS, 'yaml') and _ARGS.yaml) or 'quack.yaml'
     if os.path.isfile(yaml_file):
         with open(yaml_file) as file_pointer:
             return yaml.load(file_pointer)
@@ -197,9 +197,9 @@ profiles:
 
 def main():
     """Entry point."""
+    global _ARGS
     _create_dir('.quack')
     if _ARGS is None:
-        global _ARGS
         _ARGS = _setup()
     config = _get_config()
     if not config:

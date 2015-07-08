@@ -7,4 +7,6 @@ python:
 # command to install dependencies
 install: "pip install -r requirements.txt"
 # command to run tests
-script: py.test tests/quack_tests.py
+script:
+  - cd tests
+  - py.test quack_tests.py

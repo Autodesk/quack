@@ -18,4 +18,4 @@ def test_create_dir():
 
 def test_get_config():
     """Test on Get configuration."""
-    assert isinstance(quack._get_config(), types.DictionaryType)
+    assert isinstance(quack._get_config(), types.DictType)

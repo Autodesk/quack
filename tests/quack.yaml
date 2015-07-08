@@ -5,5 +5,5 @@ name: Quack Test
 modules:
 
 profiles:
-  init:
-    tasks: []
+  cmd:
+    tasks: ['cmd:pwd']

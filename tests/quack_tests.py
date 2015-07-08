@@ -18,3 +18,10 @@ def test_create_dir():
 def test_get_config():
     """Test on Get configuration."""
     assert isinstance(quack._get_config(), dict)
+
+
+def test_run_tasks_cmd():
+    """Test on run command task."""
+    config = quack._get_config()
+    profile = config.get('profiles').get('cmd', {})
+    assert quack._run_tasks(config, profile)

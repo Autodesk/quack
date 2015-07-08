@@ -177,6 +177,7 @@ def _run_tasks(config, profile):
             _fetch_modules(config, module)
         elif is_modules and is_negate:
             _clean_modules(config, module)
+    return True
 
 
 def _prompt_to_create():

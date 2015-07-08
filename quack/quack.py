@@ -149,7 +149,7 @@ def _run_dependencies(dependency):
 def _run_tasks(config, profile):
     """Run given tasks."""
     dependencies = profile.get('dependencies', {})
-    if isinstance(dependencies, types.DictionaryType):
+    if isinstance(dependencies, dict):
         for dependency in profile.get('dependencies', {}).items():
             _run_dependencies(dependency)
     tasks = profile.get('tasks', [])

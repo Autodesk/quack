@@ -2,3 +2,4 @@ argparse
 gitpython
 pytest
 pyyaml
+quack

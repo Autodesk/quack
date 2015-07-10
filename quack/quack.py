@@ -8,7 +8,6 @@ import git
 import os
 import shutil
 import subprocess
-import types
 import yaml
 
 
@@ -118,32 +117,28 @@ def _clean_modules(config, specific_module=None):
             print('Cleaned', module[0])
 
 
-def _run_dependencies(dependency):
+def _run_nested_quack(dependency):
     """Execute all required dependencies."""
     if not dependency or dependency[0] != 'quack':
         return
     quack = dependency[1]
     slash_index = quack.rfind('/')
     command = ['quack']
-    if slash_index == -1:
-        print('Quack..' + quack)
-        git.Repo.init(quack)
-        subprocess.call(command, cwd=quack)
-        _remove_dir(quack + '/.git')
-    elif slash_index > 0:
+    module = '.'
+    if slash_index > 0:
         module = quack[:slash_index]
-        colon_index = quack.find(':')
-        if len(quack) > colon_index + 1:
-            command.append('-p')
-            command.append(quack[colon_index + 1: len(quack)])
-        if colon_index > 0:
-            command.append('-y')
-            command.append(quack[slash_index + 1:colon_index])
-        print('Quack..' + module)
-        git.Repo.init(module)
-        subprocess.call(command, cwd=module)
-        _remove_dir(module + '/.git')
-    print
+    colon_index = quack.find(':')
+    if len(quack) > colon_index + 1:
+        command.append('-p')
+        command.append(quack[colon_index + 1: len(quack)])
+    if colon_index > 0:
+        command.append('-y')
+        command.append(quack[slash_index + 1:colon_index])
+    print('Quack..' + module)
+    git.Repo.init(module)
+    subprocess.call(command, cwd=module)
+    _remove_dir(module + '/.git')
+    return True
 
 
 def _run_tasks(config, profile):
@@ -151,7 +146,7 @@ def _run_tasks(config, profile):
     dependencies = profile.get('dependencies', {})
     if isinstance(dependencies, dict):
         for dependency in profile.get('dependencies', {}).items():
-            _run_dependencies(dependency)
+            _run_nested_quack(dependency)
     tasks = profile.get('tasks', [])
     if not tasks:
         print('No tasks found.')
@@ -168,7 +163,7 @@ def _run_tasks(config, profile):
         if is_modules and command != 'modules':
             module = command.replace('modules:', '')
         elif is_quack:
-            _run_dependencies(('quack', command.replace('quack:', '')))
+            _run_nested_quack(('quack', command.replace('quack:', '')))
         elif is_cmd:
             cmd = command.replace('cmd:', '')
             subprocess.call(cmd.split())

@@ -5,5 +5,7 @@ name: Quack Test
 modules:
 
 profiles:
+  nested_quack_test:
+    tasks: ['cmd:ls']
   cmd:
-    tasks: ['cmd:pwd']
+    tasks: ['cmd:pwd', 'quack:nested_quack_test']

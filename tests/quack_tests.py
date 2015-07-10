@@ -25,3 +25,8 @@ def test_run_tasks_cmd():
     config = quack._get_config()
     profile = config.get('profiles').get('cmd', {})
     assert quack._run_tasks(config, profile)
+
+
+def test_run_nested_quack():
+    """Test on nested quack."""
+    assert quack._run_nested_quack(('quack', 'nested_quack_test'))

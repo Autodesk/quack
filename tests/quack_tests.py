@@ -24,7 +24,14 @@ def test_run_tasks_cmd():
     """Test on run command task."""
     config = quack._get_config()
     profile = config.get('profiles').get('cmd', {})
-    assert quack._run_tasks(config, profile)
+    assert quack._run_tasks(config, profile)['tasks'] == 2
+
+
+def test_run_with_dependencies():
+    """Test on run profile with dependencies."""
+    config = quack._get_config()
+    profile = config.get('profiles').get('with_dep', {})
+    assert quack._run_tasks(config, profile)['dependencies'] == 1
 
 
 def test_run_nested_quack():

@@ -144,14 +144,17 @@ def _run_nested_quack(dependency):
 def _run_tasks(config, profile):
     """Run given tasks."""
     dependencies = profile.get('dependencies', {})
+    stats = {'tasks': 0, 'dependencies': 0}
     if isinstance(dependencies, dict):
         for dependency in profile.get('dependencies', {}).items():
             _run_nested_quack(dependency)
+            stats['dependencies'] += 1
     tasks = profile.get('tasks', [])
     if not tasks:
         print('No tasks found.')
-        return
+        return stats
     for command in tasks:
+        stats['tasks'] += 1
         is_negate = command[0] == '-'
         if is_negate:
             command = command[1:]
@@ -172,7 +175,7 @@ def _run_tasks(config, profile):
             _fetch_modules(config, module)
         elif is_modules and is_negate:
             _clean_modules(config, module)
-    return True
+    return stats
 
 
 def _prompt_to_create():
@@ -206,7 +209,9 @@ def main():
         _ARGS.profile = 'init'
     profile = config.get('profiles', {}).get(_ARGS.profile, {})
     # print(_ARGS.profile, profile)
-    _run_tasks(config, profile)
+    stats = _run_tasks(config, profile)
+    print('%s task(s) completed with %s dependencies.' % (
+        stats['tasks'], stats['dependencies']))
 
 if __name__ == '__main__':
     _ARGS = _setup()

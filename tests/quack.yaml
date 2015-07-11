@@ -9,3 +9,7 @@ profiles:
     tasks: ['cmd:ls']
   cmd:
     tasks: ['cmd:pwd', 'quack:nested_quack_test']
+  with_dep:
+    tasks: []
+    dependencies:
+      quack: 'nested_quack_test'

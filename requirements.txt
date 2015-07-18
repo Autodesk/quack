@@ -1,5 +1,6 @@
 argparse
 gitpython
+pre-commit
 pytest
 pyyaml
 quack

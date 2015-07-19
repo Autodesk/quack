@@ -13,3 +13,8 @@
     -   id: detect-private-key
     -   id: double-quote-string-fixer
     -   id: flake8
+-   repo: https://github.com/zonito/command-hook.git
+    sha: 37d426efa47d52ce15f1c8744fa0593dbeb7b943
+    hooks:
+    -   id: command
+        args: [--command, 'sh test.sh']

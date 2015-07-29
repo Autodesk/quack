@@ -65,6 +65,11 @@ def _fetch_modules(config, specific_module=None):
     for module in module_list.items():
         if specific_module and specific_module != module[0]:
             continue
+        tag = module[1].get('tag')
+        hexsha = module[1].get('hexsha')
+        if tag and hexsha:
+            print('%s: Cannot be both tag & hexsha.' % module[0])
+            continue
         _remove_dir(module[0])
         print('Cloning: ' + module[1]['repository'])
         sub_module = repo.create_submodule(
@@ -73,11 +78,16 @@ def _fetch_modules(config, specific_module=None):
             branch=module[1].get('branch', 'master')
         )
 
-        if module[1].get('hexsha'):
+        if tag:
             subprocess.call(
-                ['git', 'checkout', '--quiet', module[1].get('hexsha')],
+                ['git', 'checkout', '--quiet', 'tags/' + tag],
                 cwd=modules + '/' + module[0])
-            hexsha = ' (' + module[1].get('hexsha') + ')'
+            tag = ' (' + tag + ') '
+        elif hexsha:
+            subprocess.call(
+                ['git', 'checkout', '--quiet', hexsha],
+                cwd=modules + '/' + module[0])
+            hexsha = ' (' + hexsha + ')'
         else:
             hexsha = ' (' + sub_module.hexsha + ')'
 
@@ -97,7 +107,7 @@ def _fetch_modules(config, specific_module=None):
             subprocess.call('rm .gitmodules'.split())
             subprocess.call('git rm --quiet --cached .gitmodules'.split())
 
-        print('\033[1A' + '  Cloned: ' + module[0] + hexsha)
+        print('\033[1A' + '  Cloned: ' + module[0] + (tag or hexsha))
         print('\033[1A' + '\033[32m' +
               str(u'\u2713'.encode('utf-8')) + '\033[37m')
 

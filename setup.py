@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='quack',
-    version='0.0.8',
+    version='0.0.9',
     packages=['quack'],
 
     # dependencies
@@ -22,7 +22,7 @@ setup(
     license='MIT',
     keywords='quack build submodule module dependencies'.split(),
     url='https://github.com/zonito/quack',  # project homepage
-    download_url='https://github.com/zonito/quack/archive/0.0.1.tar.gz',
+    download_url='https://github.com/zonito/quack/archive/0.0.9.tar.gz',
 
     entry_points={
         'console_scripts': [

@@ -9,7 +9,7 @@ Should be straight forward copy paste and put third party libraries in .gitignor
 #### Quack Way
 * Add third party repository to quack configuration yaml.
 * Provide exact details (like an address) such as module / file path, hexsha, branch and tag.
-* Run "quack"! That's it!
+* Run `quack` That's it!
 
 ### Features:
 * Insert any module from any git repository, as a part of your project.

@@ -1,13 +1,21 @@
 ## Quack - Reuse modules. [![Build Status](https://api.travis-ci.org/zonito/quack.svg)](https://travis-ci.org/zonito/quack) [![Gitter chat](https://badges.gitter.im/gitterHQ/services.png)](https://gitter.im/gitterHQ/services) [![Code Health](https://landscape.io/github/zonito/quack/master/landscape.svg?style=flat)](https://landscape.io/github/zonito/quack/master)
 
-Insert specific module from git repository.
+#### Problem
+Currently, We dont have anything which helps us in reusing open source (especialy in git repositories) code. We see code - like it - clone it - copy file / folder and put it in our project and same code gets push in our repository, why? Why code redundancies?
+
+#### Solution
+Should be straight forward copy paste and put third party libraries in .gitignore - simple! And there shouldnt be any complexity needed to update libraries with latest changes.
+
+#### Quack Way
+* Add third party repository to quack configuration yaml.
+* Provide exact details (like an address) such as module / file path, hexsha, branch and tag.
+* Run "quack"! That's it!
 
 ### Features:
 * Insert any module from any git repository, as a part of your project.
 * Handle dependencies - execute nested quack modules.
 * Multiple profiles to deal with different level of complexity.
-* Works on UNIX (Mac OS X, Linux); Windows support coming eventually!
-* Written entirely in python
+* Works on UNIX (Mac OS X, Linux)
 
 ### Installation
 There are two ways to install quack. Both should have roughly the same outcome, but have their advantages/disadvantages.

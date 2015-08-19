@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# pylint: disable=C0325
+# pylint: disable=C0325,W0603
 
 """Quack!!"""
 

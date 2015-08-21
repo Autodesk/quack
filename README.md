@@ -1,4 +1,4 @@
-## Quack - Reuse modules. [![Build Status](https://api.travis-ci.org/Autodesk/quack.svg)](https://travis-ci.org/Autodesk/quack) [![Gitter chat](https://badges.gitter.im/gitterHQ/services.png)](https://gitter.im/gitterHQ/services) [![Code Health](https://landscape.io/github/zonito/quack/master/landscape.svg?style=flat)](https://landscape.io/github/zonito/quack/master)
+## Quack - Reuse modules. [![Build Status](https://api.travis-ci.org/Autodesk/quack.svg)](https://travis-ci.org/Autodesk/quack) [![Gitter chat](https://badges.gitter.im/gitterHQ/services.png)](https://gitter.im/gitterHQ/services)
 
 #### Problem
 Currently, We dont have anything which helps us in reusing open source (especialy in git repositories) code. We see code - like it - clone it - copy file / folder and put it in our project and same code gets push in our repository, why? Why code redundancies?

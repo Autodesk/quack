@@ -16,6 +16,10 @@ modules:
   toggleicon:
     repository: https://github.com/zonito/z-toggleicon.git
     tag: v1.0
+  html2text.py:
+    repository: https://github.com/aaronsw/html2text.git
+    isfile: true
+    path: html2text.py
 
 profiles:
   init:
@@ -23,8 +27,6 @@ profiles:
             'quack:pyanalytic/build.yaml:update',
             'cmd:pwd']
   update:
-    tasks: ['modules:subscribe']
-    dependencies:
-      quack: 'pyanalytic/build.yaml:update'
+    tasks: ['modules:html2text.py']
   clean:
     tasks: ['-modules']

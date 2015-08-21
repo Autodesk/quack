@@ -28,5 +28,7 @@ profiles:
             'cmd:pwd']
   update:
     tasks: ['modules:html2text.py']
+    dependencies:
+      quack: 'pyanalytic/build.yaml:update'
   clean:
     tasks: ['-modules']

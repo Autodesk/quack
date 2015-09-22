@@ -13,5 +13,4 @@ script:
 notifications:
   webhooks:
     urls:
-      - http://requestb.in/tzcbhstz
       - http://webhook.co/hooks/travis

@@ -1,4 +1,4 @@
-## Quack - Reuse modules. [![Build Status](https://api.travis-ci.org/zonito/quack.svg)](https://travis-ci.org/zonito/quack) [![Gitter chat](https://badges.gitter.im/gitterHQ/services.png)](https://gitter.im/gitterHQ/services) [![Code Health](https://landscape.io/github/zonito/quack/master/landscape.svg?style=flat)](https://landscape.io/github/zonito/quack/master)
+## Quack - Reuse modules. [![Build Status](https://api.travis-ci.org/zonito/quack.svg)](https://travis-ci.org/zonito/quack)
 
 #### Problem
 Currently, We dont have anything which helps us in reusing open source (especialy in git repositories) code. We see code - like it - clone it - copy file / folder and put it in our project and same code gets push in our repository, why? Why code redundancies?
@@ -116,3 +116,7 @@ If you want to write code:
 * Commit your changes (`git commit -am 'add some feature'`)
 * Push to your branch (`git push origin my-new-feature`)
 * Create a new Pull Request
+
+## Join Chats
+
+* [Telegram chat](https://telegram.me/joinchat/00a5dbf000f4a67acd6b351152c86771)

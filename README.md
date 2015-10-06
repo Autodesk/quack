@@ -85,7 +85,7 @@ Add a file called quack.yaml to the root of your project. The pre-commit config 
 | **description** | Project description (Optional)                                  |
 | **version**     | Project version (Optional)                                      |
 | **gitignore**   | Update git ignore for sub module included (Optional, default: true)  |
-| **modules**     | Declared modules used within your project. <ul><li>`folder name`:</li><ul><li>`repository`: Git repository url.</li><li>`path`: module path within given git repository</li><li>`branch`: provide branch name to checkout from git repository.</li><li>`hexsha`: Provide sha1 key to checkout till specific commits</li><li>`tag`: Provide tag to checkout till specific release tag</li></ul>|
+| **modules**     | Declared modules used within your project. <ul><li>`folder name`:</li><ul><li>`repository`: Git repository url.</li><li>`path`: module path within given git repository</li><li>`branch`: provide branch name to checkout from git repository.</li><li>`hexsha`: Provide sha1 key to checkout till specific commits</li><li>`tag`: Provide tag to checkout till specific release tag</li><li>`isfile`: Copy file instead of creating folder.</li></ul>|
 | **profiles**    | List of profiles for keep things separate for different stuffs. <ul><li> `task_name`: Default task (`init` task mandatory) </li> <ul><li>`tasks`: List of tasks or execute nested quack. </li><li>`dependencies`: List of dependencies before executing tasks</li><ul><li>`quack`: Nested quack. (Syntax: `module/quack_config.yaml:profile_name`)</li></ul></ul></ul>|
 
 ##### Command
@@ -116,3 +116,7 @@ If you want to write code:
 * Commit your changes (`git commit -am 'add some feature'`)
 * Push to your branch (`git push origin my-new-feature`)
 * Create a new Pull Request
+
+## Join Chats
+
+* [Telegram chat](https://telegram.me/joinchat/00a5dbf000f4a67acd6b351152c86771)

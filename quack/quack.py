@@ -95,7 +95,7 @@ def _fetch_modules(config, specific_module=None):
         is_exists = os.path.exists(from_path)
         if (path and is_exists) or not path:
             if module[1].get('isfile'):
-                if is_exists:
+                if os.path.isfile(module[0]):
                     os.remove(module[0])
                 shutil.copyfile(from_path, module[0])
             else:

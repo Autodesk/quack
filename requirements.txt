@@ -2,5 +2,7 @@ argparse
 gitpython
 pre-commit
 pytest
+pytest-cov
 pyyaml
 quack
+codecov

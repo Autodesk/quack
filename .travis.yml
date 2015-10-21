@@ -9,7 +9,8 @@ install: "pip install -r requirements.txt"
 # command to run tests
 script:
   - cd tests
-  - py.test quack_tests.py --verbose -s
+  - py.test quack_tests.py --cov=../quack --verbose -s
+after_success: codecov
 notifications:
   webhooks:
     urls:
